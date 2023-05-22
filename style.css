@@ -1,0 +1,29 @@
+/* Stylize the text font */ 
+*{
+  margin: 0;
+  padding:0;
+  font-family: sans-serif;
+}
+
+/* Stylize the navigation bar at the top */ 
+.navbar{
+  width: 85%;
+  margin: auto;
+  padding: 35px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Stylize the buttons in the nav bar at the top */ 
+.navbar ul li{
+  list-style: none;
+  display: incline-block;
+  margin: 0 20px;
+}
+
+.navbar ul li a{
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+}
