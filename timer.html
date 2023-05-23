@@ -6,6 +6,29 @@
   <body>
     <div class = "stopwatch">
       <h1 id = "displayTime">00:00:00</h1>
-      <
       <div class = "buttons">
-        <button>
+        <button>Stop</button>
+        <button>Start</button>
+      </div>
+    </div>
+    <script>
+      let [seconds, minutes, hours] = [0,0,0];
+      let displayTime = document.getElementById("displayTime");
+      let timer = null;
+      
+      function stopwatch(){
+        seconds++;
+        if (seoncds == 60){
+          seconds = 0;
+          minutes++;
+        }
+      }
+      
+      function watchStart(){
+        if (timer!== null){
+          clearInterval(timer);
+        }
+        timer = setInterval(timer, 1000); 
+      }
+          
+    </script>
