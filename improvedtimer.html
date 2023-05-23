@@ -7,18 +7,21 @@
       <div class="stopwatch">
          <h1 id="displayTime">00:00:00</h1>
          <div class="buttons">
-            <!-- Code buttons so that it can start the timer -->
             <button onclick="watchStop()">Stop</button>
             <button onclick="watchStart()">Start</button>
          </div>
       </div>
       <script>
+         <!-- Creates variables to set up seconds, minutes & hours -->
+         <!-- displayTime variable displays the timer -->
+         <!-- timer variable determines if the timer starts or stops -->
          let seconds = 0;
          let minutes = 0;
          let hours = 0;
          let displayTime = document.getElementById("displayTime");
          let timer = null;
          
+         <!-- A function that creates a timer using HTML-->
          function stopwatch() {
             seconds++;
             if (seconds === 60) {
@@ -32,6 +35,8 @@
             displayTime.innerHTML = h + ":" + m + ":" + s;
          }
          
+         <!-- A function that starts the timer -->
+         <!-- If timer is null, the timer starts. Else, the timer stops -->
          function watchStart() {
             if (timer !== null) {
                clearInterval(timer);
@@ -39,6 +44,8 @@
             timer = setInterval(stopwatch, 1000);
          }
          
+         <!-- A function that ends the timer -->
+         <!-- Uses the clearInterval statement to stop the timer -->
          function watchStop() {
             clearInterval(timer);
          }
