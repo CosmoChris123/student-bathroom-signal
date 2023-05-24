@@ -54,6 +54,7 @@ if (isset($_SESSION["user_id")){
             let hours = 0;
             let displayTime = document.getElementById("displayTime");
             let timer = null;
+            let alert = 0;
             
             // A function that creates a timer using HTML-->
             function stopwatch() {
@@ -67,6 +68,11 @@ if (isset($_SESSION["user_id")){
                let s = seconds < 10 ? "0" + seconds : seconds;
                
                displayTime.innerHTML = h + ":" + m + ":" + s;
+               
+               if (m = 10) {
+                  alert++;
+               }
+               
             }
             
             // A function that starts the timer
