@@ -103,7 +103,10 @@ if (isset($_SESSION["user_id")){
             <!-- Will display the number of times a student has skipped class -->
                <?php if (alert > 0): ?>
                   <?php
-                     $query = mysqli_query("$connect,select * from user");
+                    include "database.php";
+                    // Add the $connect variable to database.php to save space
+                     $connect = mysqli_connect("localhost", "root", "", "login");
+                     $query = mysqli_query("$connect,SELECT * FROM user");
                      $row = mysqli_fetch_array($query))
                      $id = $row['user_id'];
                      $sql = "UPDATE user SET user_alert = $alert WHERE user_alert = $id";
@@ -113,6 +116,19 @@ if (isset($_SESSION["user_id")){
             
             <?php else: ?>
                <label for = "teacher_select">Select a student</label>
+               <!-- Will display an array of students who have skipped class when alert > 0-->
+               <?php 
+               include "database.php";
+               $connect = mysqli_connect("localhost", "root", "", "login");
+               $sql = "SELECT * FROM user";
+               $query = mysql_query($sql);
+               ?>
+               <?php while ($row = mysql_fetch_array($query)) {
+                  $sql = "WHERE skipped = '{alert>0}'";
+               } ?>
+               <label for "alert_reports"> These are the students who have skipped class
+               <?php echo "htmlspecialchars($user["skipped"]); ?></label>
+            
             <?php endif; ?>
          </div>
     </div>
