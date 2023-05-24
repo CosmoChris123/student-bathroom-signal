@@ -1,29 +1,50 @@
-/* Stylize the text font */ 
-*{
+/* Uses a css stylized file from the internet */
+@import url('https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css');
+* {
   margin: 0;
-  padding:0;
+  padding: 0;
   font-family: sans-serif;
 }
 
-/* Stylize the navigation bar at the top */ 
-.navbar{
-  width: 85%;
+/* Stylize the logo/title of my website */
+.logo{
+  width: 70%;
+  text-align: left;
   margin: auto;
-  padding: 35px 0;
+  transform: translateY(-50%);
+  color: #ffffff;
+}
+
+/* Stylize the buttons in the nav bar at the top */
+.navbar {
+  width: 100%;
+  height: 15vh;
+  padding: 35px;
+  text-align: right;
+  background-color: #cb72e1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
-/* Stylize the buttons in the nav bar at the top */ 
-.navbar ul li{
+/* Stylize the navigation bar at the top */
+.navbar ul li {
   list-style: none;
-  display: incline-block;
-  margin: 0 20px;
+  display: inline-block;
+  margin-left: 60px;
 }
 
-.navbar ul li a{
+.navbar ul li a {
   text-decoration: none;
-  color: #fff;
   text-transform: uppercase;
+  font-size: 16px; /* Add font size */
+  font-weight: bold; /* Add font weight */
+  color: #333; /* Add font color */
+}
+
+.content{
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
 }
