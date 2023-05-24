@@ -3,34 +3,66 @@
 <html>
     <head>
         <!-- The title with set font -->
-        ><title>Signup</title>
+        <title>Signup</title>
         <meta charset = "UTF - 8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css"/>
-
+        <link rel = "stylesheet" href = "style.css">
     </head>
     <body>
-        <!-- Heading 1 -->
-        <h1>Signup</h1>
-        <form>
-            <!-- The "div" divdes the text into two lines in the site-->
-            <div>
-                <!-- A text input for user's name -->
-                <label for="name">Name</label>
-                <input type="text" id="name" name = "name">
+        <div class = "navbar">
+            <div class = "logo">
+                <h1>Student Bathroom Tracker</h1>
+                <p>Helps keep the education and bathroom breaks in check</p>
             </div>
-            <div>
-                <!-- A text input for user's email -->
-                <label for="email">Email</label>
-                <input type = "email" id = "email" name = "email">
-            </div>
-            <div>
-                <!-- A text input for user's password -->
-                <label for="password">Password</label>
-                <input type = "password" id = "password" name = "password">
-            </div>
-            <a href = "other.html" target = _self>
-                <button>Sign up</button>
-            </a>
-        </form>
+            <ul>
+                <li><a href = "home.php">Home</a></li>
+                <li><a href = "report.php">Report</a></li>
+                <li><a href = "login.php">Log in</a></li>
+            </ul>
+        </div>
+
+        <div class = "content">
+            </h1>
+            <!-- Heading 1 -->
+            <h1>Signup</h1>
+            <!-- Heading 2 -->
+            <h2><?php echo $message ?></h2>
+            <!-- Links with the process-signup.php file -->
+            <!-- Doesn't validate anything. Only the php file-->
+            <form action = "process-signup.php" method = "post" novalidate>
+                <!-- The "div" divdes the text into two lines in the site-->
+                <div>
+                    <!-- A text input for user's name -->
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div>
+                    <!-- A text input for user's email -->
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div>
+                    <!-- A text input for user's password -->
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div>
+                    <!-- Radio buttons that determine if the user is a student or teacher -->
+                    <label for = "title">title: </label>
+                    <div>
+                        <label for = "Teacher">Teacher</label>
+                        <input type = "radio" id = "teacher" name = "title" value = "teacher">
+
+                        <label for = "Student">Student</label>
+                        <input type = "radio" id = "student" name = "title" value = "student">
+                    </div>
+                    
+                </div>
+                <!-- Signup button -->
+                    <button>Sign up</button>
+
+            </form>
+            <label>Already have an account? <a href = "login.php">Login</a></label>
+        </div>
+
     </body>
 </html>
