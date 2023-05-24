@@ -98,8 +98,13 @@ if (isset($_SESSION["user_id")){
          </script>
          <div>
             <!-- Will display a different interface if the user is a teacher or student -->
-            <?php if(isset($user["title"]) === "student"): ?>
+            <?php if(isset($user["title"]) && $user["title"] === "student"): ?>
                <label for = "teacher_select">Select a teacher</label>
+               <?php if (alert > 0): ?> 
+                  $sql = "UPDATE user SET user_alert WHERE user_alert = $alert";
+                  echo htmlspecialchars($user["name"]);
+               <?php endif: ?>
+            
             <?php else: ?>
                <label for = "teacher_select">Select a student</label>
             <?php endif ?>
