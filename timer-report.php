@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST"){
+if (isset($_SESSION["user_id")){
    $mysqli = require __DIR__ . "/database.php";
 
-   $sql = sprintf("SELECT * FROM user WHERE email = '%s'", $mysqli->real_escape_string ($_POST["email"]));
+   $sql = "SELECT * FROM user WHERE id = {$_SESSION["user_id"]}";
 
    $result = $mysqli->query($sql);
 
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
          </script>
          <div>
             <!-- Will display a different interface if the user is a teacher or student -->
-            <?php if($_SESSION["user_title"] . $user["student"]): ?>
+            <?php if(isset($user["title"]) === "student"): ?>
                <label for = "teacher_select">Select a teacher</label>
             <?php else: ?>
                <label for = "teacher_select">Select a student</label>
