@@ -100,14 +100,20 @@ if (isset($_SESSION["user_id")){
             <!-- Will display a different interface if the user is a teacher or student -->
             <?php if(isset($user["title"]) && $user["title"] === "student"): ?>
                <label for = "teacher_select">Select a teacher</label>
-               <?php if (alert > 0): ?> 
-                  $sql = "UPDATE user SET user_alert WHERE user_alert = $alert";
-                  echo htmlspecialchars($user["name"]);
-               <?php endif: ?>
+            <!-- Will display the number of times a student has skipped class -->
+               <?php if (alert > 0): ?>
+                  <?php
+                     $query = mysqli_query("$connect,select * from user");
+                     $row = mysqli_fetch_array($query))
+                     $id = $row['user_id'];
+                     $sql = "UPDATE user SET user_alert = $alert WHERE user_alert = $id";
+                    ?>
+                  <label for "alert_reports">You have skipped class <?php echo "htmlspecialchars($user["skipped"]); ?> times</label>
+               <?php endif; ?>
             
             <?php else: ?>
                <label for = "teacher_select">Select a student</label>
-            <?php endif ?>
+            <?php endif; ?>
          </div>
     </div>
    </body>
