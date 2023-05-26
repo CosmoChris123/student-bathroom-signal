@@ -40,6 +40,25 @@ if (isset($_SESSION['user_id'])){
 
         </div>
       <div class = "content">
+         <div class = "info">
+            <!-- Will display if the user is a "teacher" -->
+            <?php if (isset($_SESSION['user_id']) && $title === "teacher"): ?>
+               <h1>Press "start" to start the timer</h1>
+               <p>Make sure you press start the same time your student presses start</p>
+               <h1>Student needs to be back in class before 15 minutes!</h1>
+            <?php endif; ?>
+            <!-- Will display if the user is a "student" -->
+            <?php if (isset($_SESSION['user_id']) && $title === "student"): ?>
+               <h1>Press "start" to start the timer</h1>
+               <p>Make sure you press start the same time your teacher presses start</p>
+               <h1>If you are not back in class before 15 minutes, you will be marked!</h1>
+            <?php endif; ?>
+            
+            <!-- Will display if the user is not logged in and is at the timer.php page-->
+            <?php if (!isset($_SESSION['user_id'])): ?>
+               <label for = "teacher_select">Please log in first</label>
+            <?php endif; ?>
+            </div>
          <div class="stopwatch">
                <h1 id="displayTime">00:00:00</h1>
                <div class="buttons">
@@ -125,11 +144,6 @@ if (isset($_SESSION['user_id'])){
                         <?php echo $row['name'] . "<br>"?>
                      <?php endif; ?>
                   <?php endwhile; ?>
-               <?php endif; ?>
-
-               <!-- Will display if the user is not logged in and is at the timer.php page-->
-               <?php if (!isset($_SESSION['user_id'])): ?>
-                  <label for = "teacher_select">Please log in first</label>
                <?php endif; ?>
             </div>
       </div>
