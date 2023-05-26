@@ -8,6 +8,7 @@ if (isset($_SESSION['user_id'])){
    $user = $result->fetch_assoc();
    $id = $user['id'];
    $skipped = $row['skipped'];
+   $title = $row['title'];
 }
 ?>
 
@@ -56,7 +57,7 @@ if (isset($_SESSION['user_id'])){
         if ($user){
             if (($_POST["email"] = $row["email"]) && ($_POST["name"] = $row["name"]) && ($title === "student")){
 
-                
+                <h1><?php echo ?></h1>
                 /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE id = $id"; */
                 exit;
             } else {
