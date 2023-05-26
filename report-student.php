@@ -5,7 +5,6 @@ if (isset($_SESSION['user_id'])){
    include "database.php";
    $connection = mysqli_connect('localhost', 'root', '', 'login');
    $select = "SELECT * FROM user";
-   $sql = "SELECT * FROM user
    $query = mysqli_query($connection, $select);
    $num = mysqli_num_rows($query);
    if ($num > 0){
