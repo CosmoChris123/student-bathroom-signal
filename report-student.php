@@ -3,11 +3,14 @@ session_start();
 if (isset($_SESSION['user_id'])){
    $mysqli = require __DIR__ . "/database.php";
    include "database.php";
+   $connection = mysqli_connect('localhost', 'root', '', 'login');
    $select = "SELECT * FROM user";
    $sql = "SELECT * FROM user
    $query = mysqli_query($connection, $select);
    $num = mysqli_num_rows($query);
-   $result = mysqli_fetch_assoc($query);
+   if ($num > 0){
+      $result = mysqli_fetch_assoc($query);
+   }
    $skipped = $result['skipped'];
 }
 ?>
@@ -81,7 +84,7 @@ if (isset($_SESSION['user_id'])){
                         value = "<?= htmlspecialchars($_POST["email"] ?? "") ?>">
                 </div>
 
-                <button>Submit</button>
+                  <a href = 'report-student.php?". $result['id']."' class = 'submit_student'><button>Submit</button></a>
             </form>
         </div>
     </body>
