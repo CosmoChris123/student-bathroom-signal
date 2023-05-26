@@ -56,7 +56,7 @@ if (isset($_SESSION['user_id'])){
             && ($_POST["name"] = $result["name"]) && ($result["title"] === "student")){
             $id = $_GET['id'];
                 <h1><?php echo ?></h1>
-                /* $skippedUpdated = mysqli_query($connection, "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE id = '$id'"); */
+                /* $skippedUpdated = mysqli_query($connection, "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE `id` = '$id'"); */
                 exit;
             } else {
                 $is_invalid = true;
