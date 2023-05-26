@@ -6,9 +6,8 @@ if (isset($_SESSION['user_id'])){
    WHERE id = {$_SESSION["user_id"]}";
    $result = $mysqli->query($sql);
    $user = $result->fetch_assoc();
-   $title = $user['title'];
-
-   /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped]"; */    
+   $id = $user['id'];
+   $skipped = $row['skipped'];
 }
 ?>
 
@@ -55,10 +54,10 @@ if (isset($_SESSION['user_id'])){
         // Checks if password matches with encryption key
         // If matches, a session begins using a user's broswer cookies
         if ($user){
-            if (($_POST["email"] = $row["email"]) && ($_POST["name"] = $row["name"])){
+            if (($_POST["email"] = $row["email"]) && ($_POST["name"] = $row["name"]) && ($title === "student")){
 
                 
-                /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped]"; */
+                /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE id = $id"; */
                 exit;
             } else {
                 $is_invalid = true;
