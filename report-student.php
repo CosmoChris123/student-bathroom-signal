@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])){
         // Checks if password matches with encryption key
         // If matches, a session begins using a user's broswer cookies
         if ($user){
-            if (($_POST["email"] = $user["email"]) && ($_POST["name"] = $user["name"])){
+            if (($_POST["email"] = $row["email"]) && ($_POST["name"] = $row["name"])){
 
                 
                 /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped]"; */
@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])){
             <?php endif; ?>
             
             <!-- Displays email and password input boxes -->
-            <form method = "post">
+            <form>
                 <div>
                     <label for = "name">Student's name</label>
                     <input type = "text" name = "name" id = "name">
@@ -86,7 +86,7 @@ if (isset($_SESSION['user_id'])){
                         value = "<?= htmlspecialchars($_POST["email"] ?? "") ?>">
                 </div>
 
-                <button>Log in</button>
+                <button>Submit</button>
             </form>
         </div>
     </body>
