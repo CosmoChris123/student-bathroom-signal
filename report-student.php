@@ -2,13 +2,13 @@
 session_start();
 if (isset($_SESSION['user_id'])){
    $mysqli = require __DIR__ . "/database.php";
+   include "database.php";
+   $select = "SELECT * FROM user";
    $sql = "SELECT * FROM user
-   WHERE id = {$_SESSION["user_id"]}";
-   $result = $mysqli->query($sql);
-   $user = $result->fetch_assoc();
-   $id = $user['id'];
-   $skipped = $row['skipped'];
-   $title = $row['title'];
+   $query = mysqli_query($connection, $select);
+   $num = mysqli_num_rows($query);
+   $result = mysqli_fetch_assoc($query);
+   $skipped = $result['skipped'];
 }
 ?>
 
@@ -46,19 +46,14 @@ if (isset($_SESSION['user_id'])){
     if ($_SERVER["REQUEST_METHOD"] === "POST"){
         $mysqli = require __DIR__ . "/database.php";
 
-        $sql = sprintf("SELECT * FROM user WHERE email = '%s'", $mysqli->real_escape_string ($_POST["email"]));
-
-        $result = $mysqli->query($sql);
-
-        $user = $result->fetch_assoc();
-
         // Checks if password matches with encryption key
         // If matches, a session begins using a user's broswer cookies
         if ($user){
-            if (($_POST["email"] = $row["email"]) && ($_POST["name"] = $row["name"]) && ($title === "student")){
-
+            if ((isset($_GET['id'])) && ($_POST["email"] = $result["email"])
+            && ($_POST["name"] = $result["name"]) && ($result["title"] === "student")){
+            $id = $_GET['id'];
                 <h1><?php echo ?></h1>
-                /* $skippedUpdated = "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE id = $id"; */
+                /* $skippedUpdated = mysqli_query($connection, "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE id = '$id'"); */
                 exit;
             } else {
                 $is_invalid = true;
