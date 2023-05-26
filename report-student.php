@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])){
             if ((isset($_GET['id'])) && ($_POST["email"] = $result["email"])
             && ($_POST["name"] = $result["name"]) && ($result["title"] === "student")){
             $id = $_GET['id'];
-                <h1><?php echo $result['name']?> is successfully reported to the database.</h1>
+                <h1><?php echo htmlspecialchars($result['name'])?> is successfully reported to the database.</h1>
                 /* $skippedUpdated = mysqli_query($connection, "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE `id` = '$id'"); */
                 exit;
             } else {
