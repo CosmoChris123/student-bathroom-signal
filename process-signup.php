@@ -2,7 +2,7 @@
 // This section outputs "Name is required"
 // when user doesn't input anything in the name section
 if (empty($_POST["name"])){
-    die('Name is required');
+    <em>('Name is required')</em>
 }
 
 // This section outputs "Valid email is required"
