@@ -1,27 +1,18 @@
 <?php
+// Starts session using the user's cookies
 session_start();
-if (isset($_SESSION['user_id'])){
-   $mysqli = require __DIR__ . "/database.php";
-   include "database.php";
-   $connection = mysqli_connect('localhost', 'root', '', 'login');
-   $select = "SELECT * FROM user";
-   $query = mysqli_query($connection, $select);
-   $num = mysqli_num_rows($query);
-   if ($num > 0){
-      $result = mysqli_fetch_assoc($query);
-   }
-   $skipped = $result['skipped'];
-}
 ?>
 
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>timer</title>
-      <link rel = "stylesheet" href = "style.css">
-   </head>
-   <body>
-      <div class = "navbar">
+    <head>
+        <!-- The title with set font -->
+        <title>Report</title>
+        <link rel = "stylesheet" href= "style.css">
+    </head>
+    <body>
+        <!-- A navigation bar for the user -->
+        <div class = "navbar">
             <div class = "logo">
                 <h1>Student Bathroom Tracker</h1>
                 <p>Helps keep the education and bathroom breaks in check</p>
@@ -29,62 +20,91 @@ if (isset($_SESSION['user_id'])){
             <ul>
                 <li><a href = "home.php">Home</a></li>
                 <li><a href = "timer.php">Timer</a></li>
-                <!-- Checks if the user is already logged in -->
-                <!-- If user is logged in, the nav bar will display "Log Out" -->
-                <!-- Else, the nav bar will display "Log in" -->
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php else: ?>
                     <li><a href="login.php">Log in</a></li>
                 <?php endif; ?>
             </ul>
-
         </div>
-        <?php
-
-    // Connects with database to verify login
-    $is_invalid = false;
-
-    if ($_SERVER["REQUEST_METHOD"] === "POST"){
-        $mysqli = require __DIR__ . "/database.php";
-
-        // Checks if password matches with encryption key
-        // If matches, a session begins using a user's broswer cookies
-        if ($user){
-            if ((isset($_GET['id'])) && ($_POST["email"] = $result["email"])
-            && ($_POST["name"] = $result["name"]) && ($result["title"] === "student")){
-            $id = $_GET['id'];
-                <h1><?php echo htmlspecialchars($result['name'])?> is successfully reported to the database.</h1>
-                /* $skippedUpdated = mysqli_query($connection, "UPDATE 'user' SET 'skipped' = [$skipped] + 1 WHERE `id` = '$id'"); */
-                exit;
-            } else {
-                $is_invalid = true;
-            }
-        }
-    }
-
-?>
         <!-- Heading 1 -->
-        <div class = "content">
+        <div>
             <h1>Report</h1>
-            <?php if ($is_invalid): ?>
-                <em>Invalid report</em>
-            <?php endif; ?>
-            
-            <!-- Displays email and password input boxes -->
-            <form>
-                <div>
-                    <label for = "name">Student's name</label>
-                    <input type = "text" name = "name" id = "name">
-                </div>
-                <div>
-                    <label for "email">Student's email</label>
-                    <input type = "email" name = "email" id = "email"
-                        value = "<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                </div>
+            <div>
+                <!-- A filter box that filters out the table to find a specific student -->
+                <?php
+                    // Checks if the user typed anything in the filter box
+                    // Searches through the various columns in the PHP database
+                    // Calls the filterTable function to filter the data
+                    if(isset($_POST['search'])){
+                        $searchValue = $_POST["searchValue"];
+                        $query = "SELECT * FROM `user` WHERE CONCAT(`id`, `name`, `email`,`skipped`)
+                        LIKE '%".$searchValue."%'";
+                        $search_result = filterTable($query);
+                        
+                    // Displays all columns of data if the user doesn't input anything
+                    } else {
+                        $query = "SELECT * FROM user";
+                        $search_result = filterTable($query);
+                    }
 
-                  <a href = 'report-student.php?". $result['id']."' class = 'submit_student'><button>Submit</button></a>
-            </form>
+                    // A function that is used to filter a table about all students' information
+                    // Requires a string as its parameter
+                    // Returns a filtered table
+                    function filterTable($query){
+                        $connection = mysqli_connect("localhost", "root", "", "login");
+                        $filter_result = mysqli_query($connection, $query);
+                        return $filter_result;
+                    }
+
+                    // A function that resets the table to show all data
+                    // Returns the default table
+                    function resetSearch(){
+                        $searchValue = "";
+                    }
+                ?>
+
+                <!-- A filter text box with "Filter" and "Reset" buttons -->
+                <form method = "POST">
+                    <input type = "text" name = "searchValue"
+                    placeholder = "Search for student">
+                    <input type = "submit" name = "search" value = "Filter">
+                    <button onclick = "resetSearch()">Reset</button>
+                </form>
+            </div>
+            <table>
+                <!-- A table that shows the student's ID, Name, Email and the amount of times they skipped class -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th># of Times Skipped Class</th>
+                        <th>Edit # of Times Skipped</th>
+                    </tr>
+                </thead>
+               <tbody>
+                    <tr>
+                        <!-- A loop that goes through the database and displays information about the students only -->
+                        <?php while($row = mysqli_fetch_array($search_result)): ?>
+                            <?php if($row["title"] === "student"): ?>
+                                <tr>
+                                    <td><?php echo $row["id"]; ?></td>
+                                    <td><?php echo $row["name"]; ?></td>
+                                    <td><?php echo $row["email"]; ?></td>
+                                    <td><?php echo $row["skipped"]; ?></td>
+                                    <td><a href = "edit-skipped.php?id=<?php echo $row["id"]; ?>" >
+                                    <button>Edit</button></a>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endwhile; ?>
+                    </tr>
+               </tbody>
+                
+            </table>
+            <script>
+
+            </script>
         </div>
     </body>
 </html>
