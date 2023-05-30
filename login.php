@@ -17,9 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
     if ($user){
         if (password_verify($_POST["password"], $user["password_hash"])){
             session_start();
-            
-            session_regenerate_id();
-            
+
             $_SESSION["user_id"] = $user["id"];
 
             header("Location: home.php");
@@ -39,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
         <link rel = "stylesheet" href= "style.css">
     </head>
     <body>
+        <!-- A navigation bar for the user -->
         <div class = "navbar">
             <div class = "logo">
                 <h1>Student Bathroom Tracker</h1>
@@ -46,8 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
             </div>
             <ul>
                 <li><a href = "home.php">Home</a></li>
-                <li><a href = "report.php">Report</a></li>
-                <li><a href = "login.php">Log in</a></li>
+                <li><a href = "timer.php">Timer</a></li>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <li><a href="logout.php">Log Out</a></li>
+                <?php else: ?>
+                    <li><a href="login.php">Log in</a></li>
+                <?php endif; ?>
             </ul>
         </div>
         <!-- Heading 1 -->
